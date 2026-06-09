@@ -9,12 +9,10 @@ jobs:
       - name: Hent koden
         uses: actions/checkout@v4
 
-      - name: Scan for hemmeligheder
+            - name: Scan for hemmeligheder
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
-          base: ${{ github.event.repository.default_branch }}
-          head: HEAD
 
       - name: Byg Docker Image
         run: docker build -t test-app:latest .
