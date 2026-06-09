@@ -14,11 +14,29 @@ resource "azurerm_storage_account" "storage" {
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_replication_type = "GRS"
 
   allow_nested_items_to_be_public = false
   enable_https_traffic_only       = true
   min_tls_version                 = "TLS1_2"
+  shared_access_key_enabled       = false
+
+
+queue_properties {
+  logging {
+    delete                 = true
+    read                   = true
+    write                  = true
+    version                = "1.0"
+    retention_policy_days  = 10
+    }
+  }
+
+  blob_properties {
+    delete_retention_policy {
+      days = 7
+    }
+  }
 }
 
 resource "azurerm_mssql_server" "sql" {
@@ -30,6 +48,11 @@ resource "azurerm_mssql_server" "sql" {
   administrator_login_password = var.sql_password
   minimum_tls_version          = "1.2"
   public_network_access_enabled = false
+}
+
+resource "azurerm_mssql_server_extended_auditing_policy" "audit" {
+  server_id                               = azurerm_mssql_server.sql.id
+  retention_in_days                       = 91
 }
 
 variable "sql_password" {

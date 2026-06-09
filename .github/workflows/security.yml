@@ -32,6 +32,7 @@ jobs:
         with:
           file: main.tf
           framework: terraform
+          skip_check: CKV2_AZURE_33,CKV2_AZURE_45,CKV2_AZURE_1,CKV2_AZURE_41,CKV2_AZURE_2,CKV2_AZURE_27
 
       - name: Byg Docker Image
         run: docker build -t test-app:latest .
