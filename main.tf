@@ -17,6 +17,7 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "GRS"
 
   allow_nested_items_to_be_public = false
+  public_network_access_enabled   = false
   enable_https_traffic_only       = true
   min_tls_version                 = "TLS1_2"
   shared_access_key_enabled       = false
