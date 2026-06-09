@@ -1,5 +1,5 @@
 # FEJL: En gammel version af node, som er fyldt med kendte sårbarheder
-FROM node:10 
+FROM node:20-alpine
 
 WORKDIR /app
 COPY . .
