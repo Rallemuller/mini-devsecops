@@ -14,6 +14,19 @@ jobs:
         with:
           path: ./
 
+      - name: Opsæt Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer dependencies
+        run: npm install express
+
+      - name: Scan dependencies (Snyk)
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
       - name: Byg Docker Image
         run: docker build -t test-app:latest .
 
