@@ -1,0 +1,28 @@
+name: Mini DevSecOps Scan
+
+on: [push]
+
+jobs:
+  scan-kode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hent koden
+        uses: actions/checkout@v4
+
+      - name: Scan for hemmeligheder
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+
+      - name: Byg Docker Image
+        run: docker build -t test-app:latest .
+
+      - name: Scan container (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'test-app:latest'
+          format: 'table'
+          severity: 'CRITICAL'
+          exit-code: '1'
