@@ -27,6 +27,12 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+      - name: Scan Azure infrastruktur (Checkov)
+        uses: bridgecrewio/checkov-action@master
+        with:
+          file: main.tf
+          framework: terraform
+
       - name: Byg Docker Image
         run: docker build -t test-app:latest .
 
