@@ -12,7 +12,7 @@ app.get('/search', (req, res) => {
     return res.status(400).send('Ugyldigt søgeord');
   }
 
-  res.send('Søgning gennemført for: ' + brugerInput);
+  res.send('Søgning gennemført!');
 });
 
 app.listen(3000, () => console.log('App kører på port 3000'));

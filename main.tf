@@ -1,4 +1,4 @@
-# Simuleret Azure infrastruktur med bevidste fejlkonfigurationer
+
 
 provider "azurerm" {
   features {}
