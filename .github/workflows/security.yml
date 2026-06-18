@@ -30,7 +30,7 @@ jobs:
       - name: SAST scanning (Semgrep)
         run: |
           pip install semgrep
-          semgrep --config=p/nodejs-security-audit --error .
+          semgrep --config=p/javascript --error .
 
       - name: Scan Azure infrastruktur (Checkov)
         uses: bridgecrewio/checkov-action@master
