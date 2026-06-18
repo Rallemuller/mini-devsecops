@@ -27,6 +27,11 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+      - name: SAST scanning (Semgrep)
+        run: |
+          pip install semgrep
+          semgrep --config=p/nodejs-security-audit --error .
+
       - name: Scan Azure infrastruktur (Checkov)
         uses: bridgecrewio/checkov-action@master
         with:
